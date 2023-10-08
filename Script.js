@@ -1,68 +1,23 @@
-console.log('Welcome to 🌡️ Temperature Converter');
+const inputs=document.querySelectorAll(".pannel .input input");
+ const c = document.querySelector("#celsius");
+ const f = document.querySelector("#ferenheit");
+ const k = document.querySelector("#kelvin");
 
-const tempLoad = () => {
-    let fa = document.getElementById('fa');
-    fa.innerHTML = "&#xf2cb";
-    fa.style.color = "#ffa41b";
-
-    setTimeout(() => {
-        fa.innerHTML = "&#xf2ca;";
-        fa.style.color = "#ffa41b";
-    }, 1000)
-
-    setTimeout(() => {
-        fa.innerHTML = "&#xf2c9;";
-    }, 2000)
-
-    setTimeout(() => {
-        fa.innerHTML = "&#xf2c8;";
-    }, 3000)
-
-    setTimeout(() => {
-        fa.innerHTML = "&#xf2c7;";
-        fa.style.color = "#ff5151";
-    }, 4000)
-}
-
-setInterval(() => {
-    fa.style.color = "#ffa41b";
-    tempLoad();
-}, 5000);
-
-
-tempLoad();
-
-const calculateTemp = () => {
-    const numberTemp = document.getElementById('temp').value;
-    // console.log(numberTemp);
-
-    const tempSelected = document.querySelector('#temp_diff');
-    const valeTemp = temp_diff.options[tempSelected.selectedIndex].value;
-    // console.log(valeTemp);
-
-
-    // Convert temperature from Celcius to Fahrenheit
-    const celTOfah = (cel) => {
-        let fahrenheit = (cel * (9 / 5) + 32);
-        return fahrenheit;
-    }
-
-    // Convert temperature from Fahrenheit to Celsius
-    const fahTOcel = (fehr) => {
-        let celsius = ((fehr - 32) * 5 / 9);
-        return celsius;
-    }
-
-    let result;
-    if (valeTemp == "cel") {
-        result = celTOfah(numberTemp);
-        document.getElementById('resultContainer').innerHTML = `= ${result}°Fahrenheit`;
-    } else {
-        result = fahTOcel(numberTemp);
-        document.getElementById('resultContainer').innerHTML = `= ${result}°Celsius`;
-    }
-
-    setTimeout(() => {
-        window.location.reload();
-    }, 1500);
-}
+ inputs.forEach(input =>{
+    input.addEventListener("input",e =>{
+        const unit=e.target.id;
+        const v = parseInt(e.target.value);
+        if(unit === "celsius"){
+            f.value = parseFloat((v*1.8)+32).toFixed(4)*1;
+            k.value = parseFloat(v+273.15).toFixed(4)*1;
+        }
+        else if(unit === "ferenheit"){
+            c.value = parseFloat ((v-32)*5/9).toFixed(4)*1;
+            k.value = parseFloat(((v-32)*5/9)+273.15).toFixed(4)*1;
+        }
+        else if(unit === "kelvin"){
+            c.value = parseFloat(v-273.15).toFixed(4)*1;
+            f.value = parseFloat((v-273.15)*9/5 + 32).toFixed(4)*1;
+        }
+    });
+ });
